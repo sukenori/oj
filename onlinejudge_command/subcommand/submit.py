@@ -179,7 +179,7 @@ def run(args: argparse.Namespace) -> bool:
 
         # show result
         if args.open:
-            utils.webbrowser_register_explorer_exe()
+            #utils.webbrowser_register_explorer_exe()
             try:
                 browser = webbrowser.get()
             except webbrowser.Error as e:
