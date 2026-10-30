@@ -42,6 +42,7 @@ tips:
     subparser.add_argument('--guess-python-version', choices=('2', '3', 'auto', 'all'), default='auto', help='default: auto')
     subparser.add_argument('--guess-python-interpreter', choices=('cpython', 'pypy', 'all'), default='cpython', help='use the specified Python interpreter if both of CPython and PyPy are available (default: cpython)')
     subparser.add_argument('--no-open', action='store_false', dest='open')
+    subparser.add_argument('--print-url', action='store_true', help='print the submission URL to stdout without opening a browser')
     subparser.add_argument('--open', action='store_true', default=True, help='open the result page after submission (default)')
     subparser.add_argument('-w', '--wait', metavar='SECOND', type=float, default=3, help='sleep before submitting')
     subparser.add_argument('-y', '--yes', action='store_true', help='don\'t confirm')
@@ -178,7 +179,7 @@ def run(args: argparse.Namespace) -> bool:
             return False
 
         # show result
-        if args.open:
+        if args.open and not args.print_url:
             #utils.webbrowser_register_explorer_exe()
             try:
                 browser = webbrowser.get()
@@ -189,6 +190,8 @@ def run(args: argparse.Namespace) -> bool:
                 logger.info('open the submission page with browser: %s', browser)
                 browser.open_new_tab(submission.get_url())
 
+    if args.print_url:
+        print(submission.get_url(), flush=True)
     return True
 
 
