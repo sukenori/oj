@@ -88,7 +88,7 @@ def main(args: Optional[List[str]] = None) -> 'NoReturn':
     level = INFO
     if parsed.verbose:
         level = DEBUG
-    handler = StreamHandler(sys.stdout)
+    handler = StreamHandler(sys.stderr if getattr(parsed, 'print_url', False) else sys.stdout)
     handler.setFormatter(log_formatter.LogFormatter())
     basicConfig(level=level, handlers=[handler])
 
